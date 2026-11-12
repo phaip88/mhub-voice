@@ -10,7 +10,7 @@ ROOT_FILES = {
     'Dockerfile', 'compose.yaml', 'config.example.toml', 'README.md',
     'AGENTS.md', 'CONTRIBUTING.md', 'SECURITY.md', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.txt',
 }
-DOCS = {'docs/deployment.md', 'docs/architecture.md'}
+DOCS = {'docs/deployment.md', 'docs/architecture.md', 'docs/voice-assistant.md'}
 PATTERNS = {
     'private key': re.compile(rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----'),
     'Telegram token': re.compile(rb'\b[0-9]{8,12}:[A-Za-z0-9_-]{30,}\b'),
@@ -41,6 +41,12 @@ def allowed(path):
         return False
     if path.startswith(('src/', 'frontend/src/', 'frontend/tests/', 'frontend/public/', '.github/workflows/')):
         return True
+    if path.startswith('android/'):
+        if any(part in {'build', '.gradle'} for part in p.parts):
+            return False
+        if p.name == 'local.properties' or p.suffix in {'.apk', '.aab', '.jks', '.keystore'}:
+            return False
+        return True
     if path in {'frontend/package.json', 'frontend/package-lock.json', 'frontend/index.html', 'frontend/vite.config.js', 'examples/alac_packet_stream.rs'}:
         return True
     if path.startswith('scripts/') and p.suffix in {'.mjs', '.py'}:
@@ -58,7 +64,7 @@ def public_files(root):
     for name in ROOT_FILES | DOCS:
         if (root / name).is_file():
             yield name
-    for directory in ['src', 'crates', 'frontend/src', 'frontend/tests', 'frontend/public', 'scripts', '.github/workflows', 'wasm/alac-decoder/src']:
+    for directory in ['src', 'crates', 'frontend/src', 'frontend/tests', 'frontend/public', 'scripts', '.github/workflows', 'wasm/alac-decoder/src', 'android']:
         for item in (root / directory).rglob('*'):
             relative = item.relative_to(root).as_posix()
             if item.is_file() and allowed(relative):
