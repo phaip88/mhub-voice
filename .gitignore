@@ -53,3 +53,4 @@ __pycache__/
 /docs/images/*
 !/docs/images/*.webp
 !/docs/images/*.svg
+!/docs/voice-assistant.md

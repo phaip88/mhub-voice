@@ -21,6 +21,7 @@ import PlaylistDetail from "./components/list/PlaylistDetail.vue";
 import RecommendationFeed from "./components/discovery/RecommendationFeed.vue";
 import PlayerBar from "./components/player/PlayerBar.vue";
 import QueuePanel from "./components/player/QueuePanel.vue";
+import VoiceAssistant from "./components/voice/VoiceAssistant.vue";
 import * as player from "./core/player";
 import { prepareOutput, preparePlaybackSession, createNativeOutput, retireOutputContext } from "./core/player/audio-output";
 import { createRenderClockWatch } from "./core/player/render-clock";
@@ -1747,6 +1748,7 @@ watch(
     <Transition name="drawer">
       <QueuePanel v-if="status.queueOpen && !media.expanded && status.activeView !== 'queue'" />
     </Transition>
+    <VoiceAssistant :prepare-track="trackForCurrentQuality" />
     <PlayerBar />
     <FullPlayer v-if="fullPlayerMounted" @chrome-color="themeController.setChrome($event)" />
     <Transition name="toast">

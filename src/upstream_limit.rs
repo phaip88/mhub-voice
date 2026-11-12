@@ -58,15 +58,18 @@ pub enum Kind {
     Lyrics,
     /// Track details, recommendations and playlist resolution.
     Metadata,
+    /// One AI voice conversation turn.
+    Voice,
 }
 
 impl Kind {
-    pub const ALL: [Kind; 5] = [
+    pub const ALL: [Kind; 6] = [
         Kind::Download,
         Kind::Search,
         Kind::Import,
         Kind::Lyrics,
         Kind::Metadata,
+        Kind::Voice,
     ];
 
     pub fn as_str(self) -> &'static str {
@@ -76,6 +79,7 @@ impl Kind {
             Kind::Import => "import",
             Kind::Lyrics => "lyrics",
             Kind::Metadata => "metadata",
+            Kind::Voice => "voice",
         }
     }
 }
@@ -138,6 +142,7 @@ pub struct Settings {
     pub import: Quota,
     pub lyrics: Quota,
     pub metadata: Quota,
+    pub voice: Quota,
 }
 
 impl Default for Settings {
@@ -157,6 +162,9 @@ impl Default for Settings {
             lyrics: Quota::new(25.0, 2.0),
             // Track details (28 in ten minutes), playlists, recommendations.
             metadata: Quota::new(20.0, 3.0),
+            // A spoken turn is one model request; allow bursts while leaving
+            // room for ordinary listening and search traffic.
+            voice: Quota::new(12.0, 8.0),
         }
     }
 }
@@ -169,6 +177,7 @@ impl Settings {
             Kind::Import => self.import,
             Kind::Lyrics => self.lyrics,
             Kind::Metadata => self.metadata,
+            Kind::Voice => self.voice,
         }
     }
 }

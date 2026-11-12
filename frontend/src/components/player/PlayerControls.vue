@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from "vue";
-import { Check, Infinity as InfinityIcon, ListMusic, ListOrdered, LoaderCircle, Mic2, Pause, Play, Repeat, Repeat1, Shuffle } from "lucide-vue-next";
+import { Check, Infinity as InfinityIcon, ListMusic, ListOrdered, LoaderCircle, Mic, Mic2, Pause, Play, Repeat, Repeat1, Shuffle } from "lucide-vue-next";
 import * as player from "../../core/player";
 import { useMediaStore } from "../../stores/media";
 import { useStatusStore } from "../../stores/status";
@@ -34,6 +34,10 @@ function cycleRepeat() {
 function selectMode(mode) {
   player.setPlaybackMode(mode.key);
   modeOpen.value = false;
+}
+
+function openVoiceAssistant() {
+  window.dispatchEvent(new CustomEvent("mhub:voice-toggle"));
 }
 
 // Behave like every other popover: an outside press or Escape dismisses it.
@@ -108,6 +112,9 @@ onBeforeUnmount(() => {
     </IconButton>
     <IconButton class="player-control--secondary player-control--lyrics" title="歌词" :active="media.expanded" :disabled="!media.track" @click="media.expanded = true">
       <Mic2 :size="18" />
+    </IconButton>
+    <IconButton class="player-control--secondary player-control--voice" title="语音助手（Alt+V）" @click="openVoiceAssistant">
+      <Mic :size="18" />
     </IconButton>
     <IconButton class="player-control--queue" title="队列" :active="status.queueOpen" @click="status.queueOpen = !status.queueOpen">
       <ListMusic :size="18" />

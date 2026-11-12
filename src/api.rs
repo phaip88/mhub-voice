@@ -506,6 +506,8 @@ fn app_with_state(state: AppState, serve_web: bool) -> Router {
     let router = Router::new()
         .route("/health", get(health))
         .route("/api/v1/platforms", get(platforms))
+        .route("/api/v1/voice/status", get(crate::voice::status))
+        .route("/api/v1/voice/chat", post(crate::voice::chat))
         .route("/api/v1/search", get(search))
         .route("/api/v1/recommendations", get(recommendations))
         .route("/api/v1/recommendations/home", get(recommendation_home))

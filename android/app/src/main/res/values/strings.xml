@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MHub Voice</string>
+    <string name="setup_title">MHub Voice</string>
+    <string name="setup_subtitle">连接你的 MHub 服务器，开始语音点歌</string>
+    <string name="server_hint">https://music.example.com</string>
+    <string name="connect">连接服务器</string>
+    <string name="server_help">支持 HTTPS。局域网自建服务也可以填写 HTTP 地址。</string>
+    <string name="invalid_server">服务器地址无效，请填写完整的 http 或 https 地址。</string>
+    <string name="connect_failed">无法连接服务器，请检查地址、证书和网络。</string>
+    <string name="server_settings">服务器设置</string>
+    <string name="server_settings_short">设</string>
+    <string name="download_started">已开始下载</string>
+    <string name="download_failed">下载失败</string>
+    <string name="webview_too_old_title">需要更新系统 WebView</string>
+    <string name="webview_too_old_message">当前 Android System WebView 版本过低（%1$s），播放器界面无法正常运行。请更新到 87 或更高版本后重新打开。</string>
+    <string name="update_webview">打开应用商店</string>
+</resources>

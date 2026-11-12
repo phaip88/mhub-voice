@@ -70,5 +70,7 @@ export default defineConfig({
   build: {
     outDir: "../web",
     emptyOutDir: true,
+    // Android WebView on older ROMs still ships Chromium 83.
+    target: "chrome80",
   },
 });
